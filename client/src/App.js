@@ -33,11 +33,31 @@ const App = () => {
       method: 'POST',
       body: data
     })
-    let res = await req.json()
     if (req.ok) {
+      let res = await req.json()
       console.log('User', res)
     } else {
       alert('Invalid login info')
+    }
+  }
+
+  const [email, setEmail] = useState('')
+
+  const handleForgotPassword = async (e) => {
+    e.preventDefault()
+    let req = await fetch('http://localhost:3100/forgot_password', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({email: email})
+    }) 
+    if (req.ok) {
+      let res = await req.json()
+      let securityQustion = prompt("Is it really you, though? Say yes if so. Don't lie.")
+      if (securityQustion === 'yes') {
+        alert(`Your password is ${res.password}`)
+      } else {
+        alert("Don't waste my time.")
+      }
     }
   }
 
@@ -49,6 +69,12 @@ const App = () => {
         <input type='password' placeholder='password' name='password' /><br />
         <input type='submit' />
         <br />
+      </form>
+      <h2>Forgot your password?</h2>
+      <p>Fill out the form below and complete the security questions to recover your account.</p>
+      <form onSubmit={handleForgotPassword}>
+        <input type='email' placeholder='Enter your email' name='recoverEmail' value={email} onChange={(e) => setEmail(e.target.value)} />
+        <input type='submit' />
       </form>
       <hr />
       <h2>News Feed</h2>
