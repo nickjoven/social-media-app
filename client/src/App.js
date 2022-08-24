@@ -21,9 +21,9 @@ const App = () => {
     }
     getPosts()
   }, [])
-
+  
   const handleAddPost = () => {
-
+    
   }
 
   const handleSubmit = async (e) => {
@@ -33,8 +33,9 @@ const App = () => {
       method: 'POST',
       body: data
     })
+    let res = await req.json()
     if (req.ok) {
-      alert('You have logged in')
+      console.log('User', res)
     } else {
       alert('Invalid login info')
     }
