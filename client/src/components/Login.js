@@ -1,9 +1,11 @@
 import { useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 import store from '../store'
 
 const Login = () => {
 
     const form = useRef()
+    const navigate = useNavigate()
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -16,6 +18,7 @@ const Login = () => {
             let res = await req.json()
             console.log('User', res)
             store.dispatch({ type: 'user/login', user: res })
+            navigate("/")
         } else {
             alert('Invalid login info')
         }
