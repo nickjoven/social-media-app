@@ -8,4 +8,5 @@ Rails.application.routes.draw do
   get '/posts', to: 'posts#index'
   post '/login', to: 'users#login'
   post '/forgot_password', to: 'users#forgot_password'
+  post '/new_post', to: 'posts#create'
 end

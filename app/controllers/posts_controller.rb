@@ -11,4 +11,11 @@ class PostsController < ApplicationController
         post = Post.find(params[:id])
         render json: post
     end
+
+    def create
+        post = Post.create(title: params[:title], text: params[:content], user_id: params[:userId])
+        render json: post
+    end
+
+
 end
